@@ -1,0 +1,96 @@
+title {label: "ER Diagram of X", size: "20"}
+
+# Entities
+
+[users]
+  *id {label: "int, not null"}
+  email {label: "varchar(128), not null, uniq"}
+  password {label: "varchar(255), not null"}
+  user_name {label: "varchar(255), not null, uniq"}
+  phone_number {label: "varchar(255), not null, uniq"}
+  display_name {label: "varchar(255), not null"}
+  self_introduction {label: "varchar(255), null"}
+  place {label: "varchar(255), null"}
+  url {label: "varchar(255), null"}
+  birth_date {label: "date, null"}
+  profile_img {label: "varchar(255), null"}
+  avatar_img {label: "varchar(255), null"}
+  created_at {label: "datetime, not null"}
+  updated_at {label: "datetime, not null"}
+
+[follows]
+  *id {label: "int, not null"}
+  user_id {label: "FK(users), not null"}
+  user_id {label: "FK(users), not null"}
+  created_at {label: "datetime, not null"}
+  updated_at {label: "datetime, not null"}
+
+[tweets]
+  *id {label: "int, not null"}
+  user_id {label: "FK(users), not null"}
+  content {label: "char(140), not null"}
+  created_at {label: "datetime, not null"}
+  updated_at {label: "datetime, not null"}
+
+[likes]
+  *id {label: "int, not null"}
+  user_id {label: "FK(users), not null"}
+  tweet_id {label: "FK(tweets), not null"}
+  created_at {label: "datetime, not null"}
+  updated_at {label: "datetime, not null"}
+
+[retweets]
+  *id {label: "int, not null"}
+  user_id {label: "FK(users), not null"}
+  tweet_id {label: "FK(tweets), not null"}
+  created_at {label: "datetime, not null"}
+  updated_at {label: "datetime, not null"}
+
+[notifications]
+  *id {label: "int, not null"}
+  user_id {label: "FK(users), not null"}
+  user_id {label: "FK(users), not null"}
+  tweet_id {label: "FK(tweets), null"}
+  like_id {label: "FK(likes), null"}
+  follow_id {label: "FK(follows), null"}
+  action_name {label: "VARCHAR(255), not null"}
+  created_at {label: "datetime, not null"}
+  updated_at {label: "datetime, not null"}
+
+[bookmarks]
+  *id {label: "int, not null"}
+  user_id {label: "FK(users) not null"}
+  tweet_id {label: "FK(tweets) not null"}
+  created_at {label: "datetime, not null"}
+  updated_at {label: "datetime, not null"}
+
+[rooms]
+  *id {label: "int, not null"}
+  user_id {label: "FK(users) not null"}
+  user_id {label: "FK(users) not null"}
+  created_at {label: "datetime, not null"}
+  updated_at {label: "datetime, not null"}
+
+[messeages]
+  *id {label: "int, not null"}
+  room_id {label: "FK(users) not null"}
+  user_id {label: "FK(users) not null"}
+  created_at {label: "datetime, not null"}
+  updated_at {label: "datetime, not null"}
+
+# Relationships
+
+users      1--* follows
+users      1--* tweets
+users      1--* likes
+users      1--* retweets
+users      1--* notifications
+users      1--* bookmarks
+users      *--* messeages
+users      1--* rooms
+follows    1--1 notifications
+tweets     1--* likes
+tweets     1--* retweets
+tweets     1--* bookmarks
+likes      1--1 notifications
+rooms      *--* messeages
