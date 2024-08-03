@@ -79,7 +79,7 @@ title {label: "ER Diagram of X", size: "20"}
 [messeages]
   *id {label: "int, not null"}
   user_id {label: "FK(users) not null"}
-  room_id {label: "FK(users) not null"}
+  room_id {label: "FK(rooms) not null"}
   created_at {label: "datetime, not null"}
   updated_at {label: "datetime, not null"}
 
