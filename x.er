@@ -20,8 +20,8 @@ title {label: "ER Diagram of X", size: "20"}
 
 [follows]
   *id {label: "int, not null"}
-  user_id {label: "FK(users), not null"}
-  user_id {label: "FK(users), not null"}
+  follower_id {label: "FK(users), not null"}
+  followed_id {label: "FK(users), not null"}
   created_at {label: "datetime, not null"}
   updated_at {label: "datetime, not null"}
 
@@ -48,8 +48,8 @@ title {label: "ER Diagram of X", size: "20"}
 
 [notifications]
   *id {label: "int, not null"}
-  user_id {label: "FK(users), not null"}
-  user_id {label: "FK(users), not null"}
+  sender_id {label: "FK(users), not null"}
+  receipient_id {label: "FK(users), not null"}
   tweet_id {label: "FK(tweets), null"}
   like_id {label: "FK(likes), null"}
   follow_id {label: "FK(follows), null"}
@@ -64,17 +64,22 @@ title {label: "ER Diagram of X", size: "20"}
   created_at {label: "datetime, not null"}
   updated_at {label: "datetime, not null"}
 
-[rooms]
+[entries]
   *id {label: "int, not null"}
   user_id {label: "FK(users) not null"}
-  user_id {label: "FK(users) not null"}
+  room_id {label: "FK(rooms) not null"}
+  created_at {label: "datetime, not null"}
+  updated_at {label: "datetime, not null"}
+
+[rooms]
+  *id {label: "int, not null"}
   created_at {label: "datetime, not null"}
   updated_at {label: "datetime, not null"}
 
 [messeages]
   *id {label: "int, not null"}
-  room_id {label: "FK(users) not null"}
   user_id {label: "FK(users) not null"}
+  room_id {label: "FK(users) not null"}
   created_at {label: "datetime, not null"}
   updated_at {label: "datetime, not null"}
 
@@ -87,10 +92,12 @@ users      1--* retweets
 users      1--* notifications
 users      1--* bookmarks
 users      *--* messeages
-users      1--* rooms
+users      1--* entries
+users      1--* messeages 
 follows    1--1 notifications
 tweets     1--* likes
 tweets     1--* retweets
 tweets     1--* bookmarks
 likes      1--1 notifications
-rooms      *--* messeages
+rooms      1--* entries
+rooms      1--* messeages
