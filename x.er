@@ -80,6 +80,7 @@ title {label: "ER Diagram of X", size: "20"}
   *id {label: "int, not null"}
   user_id {label: "FK(users) not null"}
   room_id {label: "FK(rooms) not null"}
+  messeage {label: "CHAR(400) not null"}
   created_at {label: "datetime, not null"}
   updated_at {label: "datetime, not null"}
 
@@ -91,7 +92,6 @@ users      1--* likes
 users      1--* retweets
 users      1--* notifications
 users      1--* bookmarks
-users      *--* messeages
 users      1--* entries
 users      1--* messeages 
 follows    1--1 notifications
